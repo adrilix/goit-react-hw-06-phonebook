@@ -43,6 +43,7 @@ function ContactForm ({onSubmit}) {
                     Name
                     <InputStyled
                         onChange={handleChangeName}
+                        autoComplete='clear on escape'
                         type="text"
                         name="name"
                         id={nameInputId}

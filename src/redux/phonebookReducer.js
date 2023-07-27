@@ -13,13 +13,12 @@ export const phonebookReducer = ( state = initialState, action ) => {
 
     case "phonebook/addNewContact": return {
         ...state,
-        // contacts: ((prevContacts=>[...prevContacts, action.payLoad]))
-        // contacts: [...state.contacts, action.payLoad]
-        contacts: state.contacts.push(action.payload)
+        contacts: [...state.contacts, action.payload]
+        // contacts: state.contacts.push(action.payload)
     }
     case "phonebook/delContact": return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload)
+        contacts: (state.contacts.filter(({id}) => id !== action.payload))
     } 
 
     case 'phonebook/findContacts':return {

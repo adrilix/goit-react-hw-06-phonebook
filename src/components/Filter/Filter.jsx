@@ -9,20 +9,21 @@ const Filter = ({ value, contacts, onChange, onDeleteContact }) => {
                 <h2>Contacts</h2>
                 <label>
                     Find contact by name
-                    <input onChange={onChange} type="text" name="name" value={value} />
+                    <input onChange={onChange} type="text" name="name" value={value} autoComplete='clear on escape'/>
                 </label>
             </div>
 
-            <ul>
-                {contacts.map(contact => (
-                    <li key={contact.id}>
-                        <Contact
-                            {...contact}
-                            onDeleteContact={() => onDeleteContact(contact.id)}
-                        />
-                    </li>
-                ))}
-            </ul>
+            {contacts!== undefined && 
+                    <ul>
+                    {contacts.map(contact => (
+                        <li key={contact.id}>
+                            <Contact
+                                {...contact}
+                                onDeleteContact={() => onDeleteContact(contact.id)}
+                            />
+                        </li>
+                    ))}
+                </ul>}
         </>
     );
 };
@@ -36,7 +37,7 @@ Filter.propTypes = {
             name: PropTypes.string.isRequired,
             number: PropTypes.string.isRequired,
         }).isRequired
-    ).isRequired,
+    ),
     value: PropTypes.string,
 };
 
