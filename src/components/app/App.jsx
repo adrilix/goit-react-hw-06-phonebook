@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import ContactForm from '../ContactForm/ContactForm';
 import Filter from '../Filter/Filter';
 import { nanoid } from 'nanoid';
 import { DivStyled } from './AppStyled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewContact, delContact, findContacts } from 'redux/phonebookReducer';
 
-const contactDefault = [
-  { id: '1', name: 'Andrii', number: '987 654 321' },
-  { id: '2', name: 'Ilona', number: '987 654 322' },
-];
+// const contactDefault = [
+//   { id: '1', name: 'Andrii', number: '987 654 321' },
+//   { id: '2', name: 'Ilona', number: '987 654 322' },
+// ];
 
 function App() {
-  const parsedContacts = JSON.parse(window.localStorage.getItem('contacts'));
-  const [contacts, setContacts] = useState(() =>
-    parsedContacts && parsedContacts.length > 0
-      ? parsedContacts
-      : contactDefault
-  );
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector ((state) => state.phonebook.contacts);
+  const filter = useSelector ((state) => state.phonebook.filter);
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+     
+
   }, [contacts]);
 
   const handleSubmit = ({ name, number }) => {
@@ -37,10 +36,10 @@ function App() {
     );
     findName
       ? alert(`Contact ${contact.name} is already in the contacts list`)
-      : setContacts(prevContacts=>[contact, ...prevContacts]);
+      : dispatch(addNewContact(contact));
   };
 
-  const changeFilter = event => setFilter(event.target.value);
+  const changeFilter = event => dispatch(findContacts(event.target.value));
 
   const getFindedContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -51,9 +50,7 @@ function App() {
   };
 
   const deleteContact = contactId => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== contactId)
-    );
+    dispatch(delContact(contactId));
   };
 
   return (
