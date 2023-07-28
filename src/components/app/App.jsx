@@ -19,8 +19,6 @@ function App() {
   // }, [contacts, filter]);
 
   const getFindedContacts = () => {
-  
-
     const normalizedFilter = filter.toLowerCase();
     const filteredContacts = contacts.filter(contact => {
       return (
@@ -35,7 +33,6 @@ function App() {
       name,
       number,
     };
-
     console.log('contact', contact);
     console.log(contacts);
     const findName = contacts.some(

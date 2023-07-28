@@ -9,7 +9,7 @@ const Filter = ({ value, contacts, onChange, onDeleteContact }) => {
                 <h2>Contacts</h2>
                 <label>
                     Find contact by name
-                    <input onChange={onChange} type="text" name="name" value={value} autoComplete='clear on escape'/>
+                    <input onChange={onChange} type="text" name="name" value={value}/>
                 </label>
             </div>
 
